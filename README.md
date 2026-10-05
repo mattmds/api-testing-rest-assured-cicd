@@ -24,7 +24,7 @@ O projeto foi desenhado para garantir sustentabilidade, desacoplamento e facilid
 ### 📁 Estrutura do Projeto
 
 ```text
-restful-booker-automation/
+rest-assured-api-testing/
 ├── .github/
 │   └── workflows/
 │       └── api-tests.yml          # Pipeline de CI/CD do GitHub Actions
