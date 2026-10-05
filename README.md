@@ -1,4 +1,4 @@
-# 🚀 Framework de testes Automatizados de API para Sistema de reserva de hotel (Restful-Booker)
+## 🚀 Framework de testes Automatizados de API para Sistema de reserva de hotel (Restful-Booker)
 
 ![Java 21](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)
 ![Rest Assured](https://img.shields.io/badge/Rest_Assured-5.4.0-blue?style=for-the-badge)
@@ -10,7 +10,7 @@ Este repositório contém o framework de automação de testes de API para a [Re
 
 ---
 
-## 🏗️ Arquitetura e Padrões de Projeto
+### 🏗️ Arquitetura e Padrões de Projeto
 
 O projeto foi desenhado para garantir sustentabilidade, desacoplamento e facilidade de manutenção:
 
@@ -21,7 +21,7 @@ O projeto foi desenhado para garantir sustentabilidade, desacoplamento e facilid
 
 ---
 
-## 📁 Estrutura do Projeto
+### 📁 Estrutura do Projeto
 
 ```text
 restful-booker-automation/
@@ -46,7 +46,7 @@ restful-booker-automation/
 
 ---
 
-## 🛠️ Pré-requisitos
+### 🛠️ Pré-requisitos
 
 Para rodar este projeto localmente, certifique-se de ter instalado:
 
@@ -54,7 +54,7 @@ Para rodar este projeto localmente, certifique-se de ter instalado:
 2. **Apache Maven 3.8+** (opcional se executado via IDE).
 3. **Git** para clonar o repositório.
 
-### Verificando as versões no terminal:
+#### Verificando as versões no terminal:
 ```bash
 java -version
 mvn -version
@@ -62,9 +62,9 @@ mvn -version
 
 ---
 
-## 🧪 Como Executar os Testes
+### 🧪 Como Executar os Testes
 
-### Via Linha de Comando (Terminal)
+#### Via Linha de Comando (Terminal)
 
 * **Executar todos os testes da aplicação:**
   ```bash
@@ -76,7 +76,7 @@ mvn -version
   mvn test -Dtest=BookingTest
   ```
 
-### Via IDE (IntelliJ IDEA / Eclipse / VS Code)
+#### Via IDE (IntelliJ IDEA / Eclipse / VS Code)
 
 1. Abra a pasta raiz do projeto na sua IDE.
 2. Aguarde a sincronização automática do Maven.
@@ -85,18 +85,18 @@ mvn -version
 
 ---
 
-## 🔄 Integração Contínua (CI/CD)
+### 🔄 Integração Contínua (CI/CD)
 
 O repositório está integrado com o **GitHub Actions** para execução automatizada a cada `push` ou `pull_request` enviado para o repositório.
 
-### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
+#### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
 * **Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)**.
 * **Performance com Cache:** Cache automático das dependências `.m2` do Maven para acelerar o tempo de build.
 * **Relatório de Artefatos:** Em caso de falha ou sucesso, o relatório Surefire é empacotado e disponibilizado para download na aba **Actions** do GitHub.
 
 ---
 
-## 📋 Cenários Cobertos
+### 📋 Cenários Cobertos
 
 - [x] **Criar Reserva (POST):** Validação de criação com sucesso (Status 200), estrutura do payload de resposta e validação rigorosa de contrato com JSON Schema.
 - [x] **Autenticação (POST):** Geração de token de acesso para operações administrativas.
