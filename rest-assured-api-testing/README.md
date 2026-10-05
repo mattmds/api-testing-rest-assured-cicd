@@ -1,0 +1,103 @@
+## 🚀 Framework de testes Automatizados de API para Sistema de reserva de hotel (Restful-Booker)
+
+![Java 21](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)
+![Rest Assured](https://img.shields.io/badge/Rest_Assured-5.4.0-blue?style=for-the-badge)
+![JUnit 5](https://img.shields.io/badge/JUnit-5-green?style=for-the-badge&logo=junit5)
+![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions)
+
+Este repositório contém o framework de automação de testes de API para a [Restful-Booker API](https://restful-booker.herokuapp.com/), uma API de simulação que simula um sistema de servas de hotel, desenvolvido com foco em boas práticas de **Engenharia de Qualidade**. O projeto utiliza **Java 21**, **Rest Assured**, **JUnit 5** e segue o padrão arquitetural **Service Object Pattern**.
+
+---
+
+### 🏗️ Arquitetura e Padrões de Projeto
+
+O projeto foi desenhado para garantir sustentabilidade, desacoplamento e facilidade de manutenção:
+
+* **Service Object Pattern:** Abstração das chamadas HTTP da API em classes de serviço (`AuthAPI`, `BookingAPI`), mantendo os testes focados apenas nas asserções e regras de negócio.
+* **Java 21 Text Blocks:** Utilização de `"""` para gerenciamento limpo e legível de payloads JSON estáticos e dinâmicos dentro das classes de massa (`data/`).
+* **Validação de JSON Schema:** Garantia de contrato das respostas da API utilizando o `json-schema-validator` com schemas estáticos armazenados na pasta `resources`.
+* **Gerenciamento de Dependências com Maven:** Controle centralizado das bibliotecas no `pom.xml`.
+
+---
+
+### 📁 Estrutura do Projeto
+
+```text
+rest-assured-api-testing/
+├── .github/
+│   └── workflows/
+│       └── api-tests.yml          # Pipeline de CI/CD do GitHub Actions
+├── src/
+│   └── test/
+│       ├── java/
+│       │   ├── data/
+│       │   │   └── BookingData.java   # Gerenciamento de massa e payloads
+│       │   ├── services/
+│       │   │   ├── AuthAPI.java       # Encapsulamento de requisições de Autenticação
+│       │   │   └── BookingAPI.java    # Encapsulamento de requisições de Reservas
+│       │   └── tests/
+│       │       └── BookingTest.java   # Suíte de testes automatizados com JUnit 5
+│       └── resources/
+│           └── schemas/
+│               └── booking-schema.json # JSON Schema para teste de contrato
+└── pom.xml                        # Configuração de dependências e plugins Maven
+```
+
+---
+
+### 🛠️ Pré-requisitos
+
+Para rodar este projeto localmente, certifique-se de ter instalado:
+
+1. **JDK 21** ou superior (Recomendado: [Eclipse Temurin 21](https://adoptium.net/)).
+2. **Apache Maven 3.8+** (opcional se executado via IDE).
+3. **Git** para clonar o repositório.
+
+#### Verificando as versões no terminal:
+```bash
+java -version
+mvn -version
+```
+
+---
+
+### 🧪 Como Executar os Testes
+
+#### Via Linha de Comando 
+
+* **Executar todos os testes da aplicação:**
+  ```bash
+  mvn test
+  ```
+
+* **Executar apenas a suíte de reservas (`BookingTest`):**
+  ```bash
+  mvn test -Dtest=BookingTest
+  ```
+
+#### Via IDE (IntelliJ IDEA / Eclipse / VS Code)
+
+1. Abra a pasta raiz do projeto na sua IDE.
+2. Aguarde a sincronização automática do Maven.
+3. Navegue até `src/test/java/tests/BookingTest.java`.
+4. Clique com o botão direito na classe ou método de teste e selecione **Run 'BookingTest'**.
+
+---
+
+### 🔄 Integração Contínua (CI/CD)
+
+O repositório está integrado com o **GitHub Actions** para execução automatizada a cada `push` ou `pull_request` enviado para o repositório.
+
+#### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
+* **Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)**.
+* **Performance com Cache:** Cache automático das dependências `.m2` do Maven para acelerar o tempo de build.
+* **Relatório de Artefatos:** Em caso de falha ou sucesso, o relatório Surefire é empacotado e disponibilizado para download na aba **Actions** do GitHub.
+
+---
+
+### 📋 Cenários Cobertos
+
+- [x] **Criar Reserva (POST):** Validação de criação com sucesso (Status 200), estrutura do payload de resposta e validação rigorosa de contrato com JSON Schema.
+- [x] **Autenticação (POST):** Geração de token de acesso para operações administrativas.
+- [x] **Consulta de Reserva (GET):** Validação de busca por ID e filtro de dados.
