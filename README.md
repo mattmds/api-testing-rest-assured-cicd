@@ -64,7 +64,7 @@ mvn -version
 
 ### 🧪 Como Executar os Testes
 
-#### Via Linha de Comando (Terminal)
+#### Via Linha de Comando 
 
 * **Executar todos os testes da aplicação:**
   ```bash
