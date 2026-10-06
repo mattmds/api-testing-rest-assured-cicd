@@ -100,6 +100,7 @@ mvn -version
 ### 🔄 Integração Contínua (CI) e Quality Gate
 
 A nível de validação e testes do Quality Gate, o repositório do próprio Projeto de Automação foi utilizado no workflow e integrado com o **GitHub Actions** para execução automatizada dos testes a cada `push` ou `pull_request` enviado, garantindo validação contínua da qualidade do código.
+No repositório há um branch chamada test-quality-gate, que ao receber o push de alterações, dispara o
 
 #### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
 * **⚙️Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)** e Maven..
