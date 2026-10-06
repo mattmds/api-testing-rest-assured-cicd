@@ -45,7 +45,7 @@ class BookingTest {
     @AfterEach
     void finishTest(TestInfo testInfo) {
         System.out.println("------------------------------------------------------------------");
-        System.out.println("<<< [FIM] " + testInfo.getDisplayName() + " [PASSOU]");
+        System.out.println("<<< [FIM] " + testInfo.getDisplayName());
         System.out.println("==================================================================");
     }
 
