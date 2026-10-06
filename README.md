@@ -6,7 +6,16 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions)
 
-Este repositório contém o framework de automação de testes de API para a [Restful-Booker API](https://restful-booker.herokuapp.com/), uma API de simulação que simula um sistema de servas de hotel, desenvolvido com foco em boas práticas de **Engenharia de Qualidade**. O projeto utiliza **Java 21**, **Rest Assured**, **JUnit 5** e segue o padrão arquitetural **Service Object Pattern**.
+Este repositório contém o framework de automação de testes de API para a [Restful-Booker API](https://restful-booker.herokuapp.com/), uma API que simula um sistema de reservas de hotel, desenvolvido com foco em boas práticas de **Engenharia de Qualidade**. O projeto utiliza **Java 21**, **Rest Assured**, **JUnit 5** e segue o padrão arquitetural **Service Object Pattern**.
+
+---
+
+### 📋 Cenários Cobertos
+
+- [x] **Criar uma Reserva (POST):** Validação de criação com sucesso (Status 200), estrutura do payload de resposta e validação rigorosa de contrato com JSON Schema.
+- [x] **Consulta de Reserva (GET):** Validação de busca por ID e filtro de dados.
+- [x] **Consulta de Reserva Inexistente (GET):** Validação de busca por ID inexistente (404).
+- [x] **Delete de Reserva com Autenticação (POST):** Apaga a reserva criada com uso de token de acesso para operações administrativas.
 
 ---
 
@@ -23,25 +32,28 @@ O projeto foi desenhado para garantir sustentabilidade, desacoplamento e facilid
 
 ### 📁 Estrutura do Projeto
 
-```text
-rest-assured-api-testing/
+```
+api-testing-rest-assured-cicd/
 ├── .github/
 │   └── workflows/
-│       └── api-tests.yml          # Pipeline de CI/CD do GitHub Actions
+│       └── api-tests.yml          # Esteira de CI para execução automática via GitHub Actions
 ├── src/
 │   └── test/
-│       ├── java/
-│       │   ├── data/
-│       │   │   └── BookingData.java   # Gerenciamento de massa e payloads
-│       │   ├── services/
-│       │   │   ├── AuthAPI.java       # Encapsulamento de requisições de Autenticação
-│       │   │   └── BookingAPI.java    # Encapsulamento de requisições de Reservas
-│       │   └── tests/
-│       │       └── BookingTest.java   # Suíte de testes automatizados com JUnit 5
-│       └── resources/
+│       ├── java/                  
+│       │   ├── api/               
+│       │   │   ├── AuthAPI.java           # Encapsula requisição de autenticação e geração de Token
+│       │   │   ├── BaseAPI.java           # Especificações globais (BaseURI, Headers Content-Type e Accept)
+│       │   │   └── BookingAPI.java        # Métodos para a entidade /booking (POST, GET, DELETE)
+│       │   ├── data/              
+│       │   │   └── BookingData.java       # Provedor dos payloads em JSON
+│       │   └── tests/                 
+│       │       └── BookingTest.java       # Execução dos cenários, @Order e logs no console
+│       └── resources/             
 │           └── schemas/
-│               └── booking-schema.json # JSON Schema para teste de contrato
-└── pom.xml                        # Configuração de dependências e plugins Maven
+│               └── booking-schema.json    # Schema em JSON puro para validação de contrato
+├── .gitignore                     
+├── pom.xml                        # Gerenciador de dependências Maven 
+└── README.md                     
 ```
 
 ---
@@ -85,19 +97,24 @@ mvn -version
 
 ---
 
-### 🔄 Integração Contínua (CI/CD)
+### 🔄 Integração Contínua (CI) e Quality Gate
 
-O repositório está integrado com o **GitHub Actions** para execução automatizada a cada `push` ou `pull_request` enviado para o repositório.
+A nível de validação e testes do Quality Gate, o repositório do próprio Projeto de Automação foi utilizado no workflow e integrado com o **GitHub Actions** para execução automatizada dos testes a cada `push` ou `pull_request` enviado, garantindo validação contínua da qualidade do código.
 
 #### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
-* **Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)**.
-* **Performance com Cache:** Cache automático das dependências `.m2` do Maven para acelerar o tempo de build.
+* **⚙️Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)** e Maven..
+* **🚀Performance com Cache:** Cache automático das dependências `.m2` do Maven para acelerar o tempo de build.
+* **🧪 Execução Automatizada:** A suíte `BookingTest` é executada automaticamente pelo Maven através do comando `mvn test`.
+* **🛡️ Quality Gate:** O resultado dos testes do workflow (disparados pelo push) é utilizado como critério obrigatório para integração na `main`. Pull Requests com falhas nos testes são bloqueadas até que o pipeline seja aprovado.
+* **📊 Relatórios de Teste:** Os relatórios gerados pelo **Maven Surefire** são armazenados como artefatos do workflow, permitindo análise dos resultados diretamente na aba **Actions** do GitHub, mesmo quando os testes falham.
+* **🌿 Proteção da Branch Principal:** A branch `main` possui uma **Ruleset** que exige a aprovação do Quality Gate antes da integração das alterações.
+
+#### Fluxo da Pipeline
+
+`Push` → `GitHub Actions` → `Maven + Rest Assured` → `Testes Automatizados` → `Quality Gate` → `Pull Request` → `Merge na main`
+
+**Resultado:** alterações que introduzem falhas nos testes são automaticamente identificadas e impedidas de serem integradas à branch principal.
 * **Relatório de Artefatos:** Em caso de falha ou sucesso, o relatório Surefire é empacotado e disponibilizado para download na aba **Actions** do GitHub.
 
 ---
 
-### 📋 Cenários Cobertos
-
-- [x] **Criar Reserva (POST):** Validação de criação com sucesso (Status 200), estrutura do payload de resposta e validação rigorosa de contrato com JSON Schema.
-- [x] **Autenticação (POST):** Geração de token de acesso para operações administrativas.
-- [x] **Consulta de Reserva (GET):** Validação de busca por ID e filtro de dados.
