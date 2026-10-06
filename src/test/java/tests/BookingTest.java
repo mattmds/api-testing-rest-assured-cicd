@@ -59,7 +59,7 @@ class BookingTest {
         System.out.println("  -> Validando resposta (Status 200, Headers, SLA, Schema e Payload)...");
         response.then()
                 // 1. Status Code
-                .statusCode(200)
+                .statusCode(201)
                 // 2. Headers
                 .header("Content-Type", containsString("application/json"))
                 // 3. Performance SLA (< 1500ms)
