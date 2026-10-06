@@ -1,4 +1,4 @@
-## 🚀 Framework de testes Automatizados de API para Sistema de reserva de hotel (Restful-Booker)
+## 🚀 Automação de testes de API com Integração Contínua (CI) e Quality Gates
 
 ![Java 21](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)
 ![Rest Assured](https://img.shields.io/badge/Rest_Assured-5.4.0-blue?style=for-the-badge)
@@ -6,7 +6,9 @@
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=for-the-badge&logo=apachemaven)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions)
 
-Este repositório contém o framework de automação de testes de API para a [Restful-Booker API](https://restful-booker.herokuapp.com/), uma API que simula um sistema de reservas de hotel, desenvolvido com foco em boas práticas de **Engenharia de Qualidade**. O projeto utiliza **Java 21**, **Rest Assured**, **JUnit 5** e segue o padrão arquitetural **Service Object Pattern**.
+Este repositório contém o framework de automação de testes de API para a [Restful-Booker API](https://restful-booker.herokuapp.com/), uma API que simula um sistema de reservas de hotel, desenvolvido com foco em boas práticas de **Engenharia de Qualidade**. 
+
+O projeto utiliza **Java 21**, **Rest Assured**, **JUnit 5** e segue o padrão arquitetural **Service Object Pattern**.
 
 ---
 
@@ -100,7 +102,7 @@ mvn -version
 ### 🔄 Integração Contínua (CI) e Quality Gate
 
 A nível de validação e testes do Quality Gate, o repositório do próprio Projeto de Automação foi utilizado no workflow e integrado com o **GitHub Actions** para execução automatizada dos testes a cada `push` ou `pull_request` enviado, garantindo validação contínua da qualidade do código.
-No repositório há um branch chamada test-quality-gate, que ao receber o push de alterações, dispara o
+No repositório há uma branch chamada test-quality-gate, que ao receber o push de alterações, dispara a action (execução dos testes), que caso passem, permitirão o PR na branch principal. 
 
 #### Destaques da Pipeline (`.github/workflows/api-tests.yml`):
 * **⚙️Ambiente Isolado:** Execução em container Ubuntu rodando **Java 21 (Eclipse Temurin)** e Maven..
